@@ -7,6 +7,11 @@ const WHEEL_ROTATION = 0.003;
 const WHEEL_ZOOM = 0.002;
 const RESPONSE_SECONDS = 0.045;
 interface Tap { id: number; x: number; y: number; target: EventTarget | null }
+export interface OrbitLimits {
+  referenceRadius?: () => number;
+  minimumDistance?: () => number;
+  maximumDistance?: () => number;
+}
 
 export class CameraController {
   controls: TrackballControls;
@@ -66,7 +71,7 @@ export class CameraController {
     this.camera.updateMatrixWorld();
   }
 
-  constructor(readonly camera: THREE.PerspectiveCamera, private surface: HTMLElement) {
+  constructor(readonly camera: THREE.PerspectiveCamera, private surface: HTMLElement, private limits: OrbitLimits = {}) {
     // Observe the original target before TrackballControls captures the pointer.
     surface.addEventListener('pointerdown', this.onPointerDown, true);
     surface.addEventListener('pointermove', this.onPointerMove, true);
@@ -244,14 +249,14 @@ export class CameraController {
     const previous = this.homeDistance;
     const halfFov = THREE.MathUtils.degToRad(42 / 2);
     const limitingFov = Math.atan(Math.tan(halfFov) * Math.min(1, this.camera.aspect));
-    this.homeDistance = SPHERE_RADIUS / Math.sin(limitingFov) * 1.23;
+    this.homeDistance = (this.limits.referenceRadius?.() ?? SPHERE_RADIUS) / Math.sin(limitingFov) * 1.23;
     this.controls.handleResize();
     if (reset) this.reset();
     else (this.mode === 'observer' ? this.orbitPosition : this.camera.position).multiplyScalar(this.homeDistance / previous);
   }
 
-  private get minimumDistance(): number { return SPHERE_RADIUS * 1.35; }
-  private get maximumDistance(): number { return this.homeDistance * 2.4; }
+  private get minimumDistance(): number { return this.limits.minimumDistance?.() ?? SPHERE_RADIUS * 1.35; }
+  private get maximumDistance(): number { return this.limits.maximumDistance?.() ?? this.homeDistance * 2.4; }
 
   zoom(factor: number): void {
     if (this.mode === 'observer') {

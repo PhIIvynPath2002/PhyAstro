@@ -1,6 +1,13 @@
 declare module 'astronomia/sidereal' {
   export function mean(jd: number): number;
 }
+declare module 'astronomia/precess' {
+  import { Equatorial } from 'astronomia/coord';
+  export class Precessor {
+    constructor(epochFrom: number, epochTo: number);
+    precess(eq: Equatorial): Equatorial;
+  }
+}
 declare module 'astronomia/solar' {
   export function trueLongitude(centuries: number): { lon: number; ano: number };
   export function radius(centuries: number): number;

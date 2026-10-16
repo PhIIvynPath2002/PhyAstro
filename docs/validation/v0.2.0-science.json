@@ -1,0 +1,763 @@
+{
+  "version": "0.2.0",
+  "generatedAtUTC": "2026-10-16T19:38:27.282Z",
+  "frame": {
+    "id": "SSB_EQJ",
+    "origin": "Solar System Barycenter (SSB)",
+    "orientation": "J2000 mean equator and equinox (EQJ)",
+    "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+    "unit": "km",
+    "ephemerisTimeScale": "TT",
+    "inputTimeScale": "UTC (UT1 approximated by UTC)",
+    "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+    "kmPerLibraryAU": 149597870.69098932,
+    "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+  },
+  "externalReference": {
+    "source": "NASA JPL Horizons",
+    "endpoint": "https://ssd.jpl.nasa.gov/api/horizons.api",
+    "attemptedAtUTC": "2026-10-16T19:38:27.280Z",
+    "request": {
+      "format": "json",
+      "COMMAND": "'301'",
+      "CENTER": "'500@399'",
+      "EPHEM_TYPE": "'VECTORS'",
+      "REF_PLANE": "'FRAME'",
+      "REF_SYSTEM": "'ICRF'",
+      "VEC_CORR": "'NONE'",
+      "OUT_UNITS": "'KM-S'",
+      "TIME_TYPE": "'TT'",
+      "TLIST": "'2461041.500868651'",
+      "CSV_FORMAT": "'YES'",
+      "VEC_TABLE": "'2'"
+    },
+    "exitCode": 56,
+    "completed": false,
+    "status": "unavailable",
+    "reason": "curl: (56) CONNECT tunnel failed, response 403",
+    "expectedFrame": "ICRF axes; distance comparison is orientation invariant; vector comparison needs the EQJ/ICRF frame-bias convention recorded.",
+    "expectedTimeScale": "TT request at engine-computed TT; no claim of exact TDB conversion."
+  },
+  "snapshots": [
+    {
+      "utc": "2026-01-01T00:00:00.000Z",
+      "julianDateUT": 2461041.5,
+      "julianDateTT": 2461041.500868651,
+      "deltaTSeconds": 75.05144459428266,
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "bodies": {
+        "sun": {
+          "id": "sun",
+          "name": "太阳",
+          "english": "Sun",
+          "physicalRadiusKm": 695700,
+          "radiusDefinition": "IAU nominal solar radius",
+          "radiusSource": "IAU 2015 Resolution B3",
+          "positionKm": [
+            -459504.07762632944,
+            -767603.991265621,
+            -311332.26565681736
+          ],
+          "utc": "2026-01-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9496.50086865098,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "earth": {
+          "id": "earth",
+          "name": "地球",
+          "english": "Earth",
+          "physicalRadiusKm": 6371.0088,
+          "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+          "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+          "positionKm": [
+            -26533870.035675574,
+            132063429.69351058,
+            57268626.04473052
+          ],
+          "utc": "2026-01-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9496.50086865098,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "moon": {
+          "id": "moon",
+          "name": "月球",
+          "english": "Moon",
+          "physicalRadiusKm": 1737.4,
+          "radiusDefinition": "Mean lunar radius; spherical model",
+          "radiusSource": "NASA Moon Fact Sheet",
+          "positionKm": [
+            -26389623.112345356,
+            132353033.181875,
+            57428792.5629649
+          ],
+          "utc": "2026-01-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9496.50086865098,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        }
+      }
+    },
+    {
+      "utc": "2026-04-01T00:00:00.000Z",
+      "julianDateUT": 2461131.5,
+      "julianDateTT": 2461131.5008704015,
+      "deltaTSeconds": 75.20268047810532,
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "bodies": {
+        "sun": {
+          "id": "sun",
+          "name": "太阳",
+          "english": "Sun",
+          "physicalRadiusKm": 695700,
+          "radiusDefinition": "IAU nominal solar radius",
+          "radiusSource": "IAU 2015 Resolution B3",
+          "positionKm": [
+            -364491.89304152614,
+            -759330.0037893195,
+            -309785.4729467242
+          ],
+          "utc": "2026-04-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9586.500870401394,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "earth": {
+          "id": "earth",
+          "name": "地球",
+          "english": "Earth",
+          "physicalRadiusKm": 6371.0088,
+          "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+          "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+          "positionKm": [
+            -147124073.91082066,
+            -26722028.173709203,
+            -11563478.623893932
+          ],
+          "utc": "2026-04-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9586.500870401394,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "moon": {
+          "id": "moon",
+          "name": "月球",
+          "english": "Moon",
+          "physicalRadiusKm": 1737.4,
+          "radiusDefinition": "Mean lunar radius; spherical model",
+          "radiusSource": "NASA Moon Fact Sheet",
+          "positionKm": [
+            -147513535.87303075,
+            -26705506.839362007,
+            -11569346.626102319
+          ],
+          "utc": "2026-04-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9586.500870401394,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        }
+      }
+    },
+    {
+      "utc": "2026-07-01T00:00:00.000Z",
+      "julianDateUT": 2461222.5,
+      "julianDateTT": 2461222.5008721794,
+      "deltaTSeconds": 75.35628697369248,
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "bodies": {
+        "sun": {
+          "id": "sun",
+          "name": "太阳",
+          "english": "Sun",
+          "physicalRadiusKm": 695700,
+          "radiusDefinition": "IAU nominal solar radius",
+          "radiusSource": "IAU 2015 Resolution B3",
+          "positionKm": [
+            -272843.5343447062,
+            -740462.215824004,
+            -303634.51475453505
+          ],
+          "utc": "2026-07-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9677.500872179247,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "earth": {
+          "id": "earth",
+          "name": "地球",
+          "english": "Earth",
+          "physicalRadiusKm": 6371.0088,
+          "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+          "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+          "positionKm": [
+            23086271.366264533,
+            -138617220.42711368,
+            -60070940.42196982
+          ],
+          "utc": "2026-07-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9677.500872179247,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "moon": {
+          "id": "moon",
+          "name": "月球",
+          "english": "Moon",
+          "physicalRadiusKm": 1737.4,
+          "radiusDefinition": "Mean lunar radius; spherical model",
+          "radiusSource": "NASA Moon Fact Sheet",
+          "positionKm": [
+            23223114.68156032,
+            -138955770.25281063,
+            -60243248.62589636
+          ],
+          "utc": "2026-07-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9677.500872179247,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        }
+      }
+    },
+    {
+      "utc": "2026-10-01T00:00:00.000Z",
+      "julianDateUT": 2461314.5,
+      "julianDateTT": 2461314.500873985,
+      "deltaTSeconds": 75.51228686934337,
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "bodies": {
+        "sun": {
+          "id": "sun",
+          "name": "太阳",
+          "english": "Sun",
+          "physicalRadiusKm": 695700,
+          "radiusDefinition": "IAU nominal solar radius",
+          "radiusSource": "IAU 2015 Resolution B3",
+          "positionKm": [
+            -186061.00753187222,
+            -711489.8179672775,
+            -293054.51386719634
+          ],
+          "utc": "2026-10-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9769.500873984802,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "earth": {
+          "id": "earth",
+          "name": "地球",
+          "english": "Earth",
+          "physicalRadiusKm": 6371.0088,
+          "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+          "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+          "positionKm": [
+            148339812.045893,
+            17152652.417820886,
+            7449697.955829623
+          ],
+          "utc": "2026-10-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9769.500873984802,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        },
+        "moon": {
+          "id": "moon",
+          "name": "月球",
+          "english": "Moon",
+          "physicalRadiusKm": 1737.4,
+          "radiusDefinition": "Mean lunar radius; spherical model",
+          "radiusSource": "NASA Moon Fact Sheet",
+          "positionKm": [
+            148503867.91161928,
+            17441776.390557718,
+            7611180.388221743
+          ],
+          "utc": "2026-10-01T00:00:00.000Z",
+          "ttDaysSinceJ2000": 9769.500873984802,
+          "frame": "SSB_EQJ",
+          "unit": "km",
+          "kind": "geometric"
+        }
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "utc": "2026-01-01T00:00:00.000Z",
+      "julianDateTT": 2461041.500868651,
+      "observer": "earth",
+      "target": "moon",
+      "computed": {
+        "observer": "earth",
+        "target": "moon",
+        "vectorKm": [
+          144246.9233302176,
+          289603.4883644283,
+          160166.5182343796
+        ],
+        "distanceKm": 361013.39161643723,
+        "direction": [
+          0.3995611428272843,
+          0.8021959713675131,
+          0.44365810785365634
+        ],
+        "angularDiameterRad": 0.009625164866477,
+        "angularDiameterDeg": 0.5514813239667327,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-01-01T00:00:00.000Z",
+      "julianDateTT": 2461041.500868651,
+      "observer": "earth",
+      "target": "sun",
+      "computed": {
+        "observer": "earth",
+        "target": "sun",
+        "vectorKm": [
+          26074365.958049245,
+          -132831033.6847762,
+          -57579958.310387336
+        ],
+        "distanceKm": 147103391.0856795,
+        "direction": [
+          0.17725197064194384,
+          -0.9029773732912081,
+          -0.39142509146407256
+        ],
+        "angularDiameterRad": 0.009458688726219844,
+        "angularDiameterDeg": 0.5419429437403698,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-01-01T00:00:00.000Z",
+      "julianDateTT": 2461041.500868651,
+      "observer": "moon",
+      "target": "sun",
+      "computed": {
+        "observer": "moon",
+        "target": "sun",
+        "vectorKm": [
+          25930119.034719028,
+          -133120637.17314063,
+          -57740124.828621715
+        ],
+        "distanceKm": 147402161.21130136,
+        "direction": [
+          0.1759141034407775,
+          -0.9031118409608111,
+          -0.3917183055806835
+        ],
+        "angularDiameterRad": 0.009439516723576647,
+        "angularDiameterDeg": 0.5408444689041008,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-04-01T00:00:00.000Z",
+      "julianDateTT": 2461131.5008704015,
+      "observer": "earth",
+      "target": "moon",
+      "computed": {
+        "observer": "earth",
+        "target": "moon",
+        "vectorKm": [
+          -389461.96221008897,
+          16521.334347195923,
+          -5868.002208387479
+        ],
+        "distanceKm": 389856.39400561614,
+        "direction": [
+          -0.9989882638797467,
+          0.042378000210400356,
+          -0.01505170185384454
+        ],
+        "angularDiameterRad": 0.008913055051583539,
+        "angularDiameterDeg": 0.5106804370234951,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-04-01T00:00:00.000Z",
+      "julianDateTT": 2461131.5008704015,
+      "observer": "earth",
+      "target": "sun",
+      "computed": {
+        "observer": "earth",
+        "target": "sun",
+        "vectorKm": [
+          146759582.01777914,
+          25962698.169919882,
+          11253693.150947208
+        ],
+        "distanceKm": 149462644.89775124,
+        "direction": [
+          0.9819147929449442,
+          0.17370693652371266,
+          0.07529435303815185
+        ],
+        "angularDiameterRad": 0.009309383126102048,
+        "angularDiameterDeg": 0.533388362995952,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-04-01T00:00:00.000Z",
+      "julianDateTT": 2461131.5008704015,
+      "observer": "moon",
+      "target": "sun",
+      "computed": {
+        "observer": "moon",
+        "target": "sun",
+        "vectorKm": [
+          147149043.97998923,
+          25946176.835572686,
+          11259561.153155595
+        ],
+        "distanceKm": 149842660.66100556,
+        "direction": [
+          0.9820236995984061,
+          0.17315614072197807,
+          0.07514256022607944
+        ],
+        "angularDiameterRad": 0.00928577344264386,
+        "angularDiameterDeg": 0.5320356277781579,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-07-01T00:00:00.000Z",
+      "julianDateTT": 2461222.5008721794,
+      "observer": "earth",
+      "target": "moon",
+      "computed": {
+        "observer": "earth",
+        "target": "moon",
+        "vectorKm": [
+          136843.31529578567,
+          -338549.8256969452,
+          -172308.20392653346
+        ],
+        "distanceKm": 403772.4539402876,
+        "direction": [
+          0.33891196380628513,
+          -0.8384668701223786,
+          -0.4267458125115576
+        ],
+        "angularDiameterRad": 0.008605863745523561,
+        "angularDiameterDeg": 0.49307967168314676,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-07-01T00:00:00.000Z",
+      "julianDateTT": 2461222.5008721794,
+      "observer": "earth",
+      "target": "sun",
+      "computed": {
+        "observer": "earth",
+        "target": "sun",
+        "vectorKm": [
+          -23359114.90060924,
+          137876758.21128967,
+          59767305.90721529
+        ],
+        "distanceKm": 152078202.11720333,
+        "direction": [
+          -0.1535993625345918,
+          0.9066174921309965,
+          0.3930037643472004
+        ],
+        "angularDiameterRad": 0.009149272109222081,
+        "angularDiameterDeg": 0.524214677475182,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-07-01T00:00:00.000Z",
+      "julianDateTT": 2461222.5008721794,
+      "observer": "moon",
+      "target": "sun",
+      "computed": {
+        "observer": "moon",
+        "target": "sun",
+        "vectorKm": [
+          -23495958.215905026,
+          138215308.03698662,
+          59939614.11114182
+        ],
+        "distanceKm": 152473895.36584696,
+        "direction": [
+          -0.15409823537024914,
+          0.9064850590020791,
+          0.39311394233958724
+        ],
+        "angularDiameterRad": 0.009125528173571193,
+        "angularDiameterDeg": 0.522854250173356,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-10-01T00:00:00.000Z",
+      "julianDateTT": 2461314.500873985,
+      "observer": "earth",
+      "target": "moon",
+      "computed": {
+        "observer": "earth",
+        "target": "moon",
+        "vectorKm": [
+          164055.86572626233,
+          289123.97273683175,
+          161482.43239211943
+        ],
+        "distanceKm": 369572.1508198325,
+        "direction": [
+          0.44390754379715164,
+          0.7823207784879347,
+          0.4369442665901592
+        ],
+        "angularDiameterRad": 0.009402258237065622,
+        "angularDiameterDeg": 0.5387097148759741,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-10-01T00:00:00.000Z",
+      "julianDateTT": 2461314.500873985,
+      "observer": "earth",
+      "target": "sun",
+      "computed": {
+        "observer": "earth",
+        "target": "sun",
+        "vectorKm": [
+          -148525873.0534249,
+          -17864142.235788163,
+          -7742752.46969682
+        ],
+        "distanceKm": 149796571.25551823,
+        "direction": [
+          -0.9915171743155201,
+          -0.11925601558206614,
+          -0.05168844924019975
+        ],
+        "angularDiameterRad": 0.009288630509735085,
+        "angularDiameterDeg": 0.5321993256642709,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    },
+    {
+      "utc": "2026-10-01T00:00:00.000Z",
+      "julianDateTT": 2461314.500873985,
+      "observer": "moon",
+      "target": "sun",
+      "computed": {
+        "observer": "moon",
+        "target": "sun",
+        "vectorKm": [
+          -148689928.91915116,
+          -18153266.208524995,
+          -7904234.902088939
+        ],
+        "distanceKm": 150002376.532531,
+        "direction": [
+          -0.9912504878674692,
+          -0.12101985733931421,
+          -0.05269406448620331
+        ],
+        "angularDiameterRad": 0.009275886292371978,
+        "angularDiameterDeg": 0.5314691357961675,
+        "positionKind": "geometric"
+      },
+      "referenceDistanceKm": null,
+      "referenceVectorKm": null,
+      "absoluteErrorKm": null,
+      "relativeError": null,
+      "conclusion": "尚未完成独立星历对照"
+    }
+  ],
+  "crossLibraryConsistency": [
+    {
+      "utc": "2026-01-01T00:00:00.000Z",
+      "note": "Astronomia low-order Meeus versus Astronomy Engine: cross-library model consistency only, not independent JPL validation.",
+      "bodies": [
+        {
+          "id": "sun",
+          "engineDistanceKm": 147103391.0856795,
+          "meeusDistanceKm": 147102984.9642207,
+          "differenceKm": 406.1214587986469
+        },
+        {
+          "id": "moon",
+          "engineDistanceKm": 361013.39161643723,
+          "meeusDistanceKm": 361027.0646036541,
+          "differenceKm": -13.672987216850743
+        }
+      ]
+    },
+    {
+      "utc": "2026-04-01T00:00:00.000Z",
+      "note": "Astronomia low-order Meeus versus Astronomy Engine: cross-library model consistency only, not independent JPL validation.",
+      "bodies": [
+        {
+          "id": "sun",
+          "engineDistanceKm": 149462644.89775124,
+          "meeusDistanceKm": 149464780.7619422,
+          "differenceKm": -2135.864190965891
+        },
+        {
+          "id": "moon",
+          "engineDistanceKm": 389856.39400561614,
+          "meeusDistanceKm": 389868.26216778415,
+          "differenceKm": -11.86816216801526
+        }
+      ]
+    },
+    {
+      "utc": "2026-07-01T00:00:00.000Z",
+      "note": "Astronomia low-order Meeus versus Astronomy Engine: cross-library model consistency only, not independent JPL validation.",
+      "bodies": [
+        {
+          "id": "sun",
+          "engineDistanceKm": 152078202.11720333,
+          "meeusDistanceKm": 152089057.36132556,
+          "differenceKm": -10855.244122236967
+        },
+        {
+          "id": "moon",
+          "engineDistanceKm": 403772.4539402876,
+          "meeusDistanceKm": 403780.8414956963,
+          "differenceKm": -8.387555408698972
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-01T00:00:00.000Z",
+      "note": "Astronomia low-order Meeus versus Astronomy Engine: cross-library model consistency only, not independent JPL validation.",
+      "bodies": [
+        {
+          "id": "sun",
+          "engineDistanceKm": 149796571.25551823,
+          "meeusDistanceKm": 149798428.24700934,
+          "differenceKm": -1856.9914911091328
+        },
+        {
+          "id": "moon",
+          "engineDistanceKm": 369572.1508198325,
+          "meeusDistanceKm": 369586.39709046535,
+          "differenceKm": -14.246270632836968
+        }
+      ]
+    }
+  ]
+}

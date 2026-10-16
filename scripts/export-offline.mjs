@@ -1,6 +1,6 @@
 import { build } from 'vite';
 import { chromium } from '@playwright/test';
-import { mkdir, writeFile, stat } from 'node:fs/promises';
+import { mkdir, readFile, writeFile, stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
@@ -23,6 +23,13 @@ const styles = outputs.filter(item => item.type === 'asset' && item.fileName.end
 const html = outputs.find(item => item.type === 'asset' && item.fileName.endsWith('.html'));
 assert.equal(scripts.length, 1, 'The portable build must have one script.');
 assert.ok(html);
+const noticePackages = ['three', 'astronomia', 'lucide', 'd3-geo', 'd3-array', 'internmap', 'topojson-client', 'world-atlas'];
+const notices = [];
+for (const name of noticePackages) notices.push(`${name}\n${await readFile(new URL(`../node_modules/${name}/LICENSE`, import.meta.url), 'utf8')}`);
+const engineSource = await readFile(new URL('../node_modules/astronomy-engine/esm/astronomy.js', import.meta.url), 'utf8');
+const engineLicense = engineSource.match(/^\/\*\*([\s\S]*?)\*\//)?.[1];
+assert.ok(engineLicense?.includes('Permission is hereby granted'), 'The engine license must be preserved in the portable document.');
+notices.push(`astronomy-engine 2.1.19\n${engineLicense}`);
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
   args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
@@ -35,7 +42,7 @@ try {
   page.on('request', request => {
     if (/^https?:/.test(request.url())) externalRequests.push(request.url());
   });
-  const portable = await page.evaluate(({ html, js, css }) => {
+  const portable = await page.evaluate(({ html, js, css, notices }) => {
     const document = new DOMParser().parseFromString(html, 'text/html');
     document.querySelectorAll('script[src], link[rel="stylesheet"], link[rel="modulepreload"]').forEach(node => node.remove());
     const style = document.createElement('style');
@@ -44,10 +51,15 @@ try {
     const script = document.createElement('script');
     script.textContent = js.replace(/<\/script/gi, '<\\/script');
     document.body.append(script);
+    const licenses = document.createElement('pre');
+    licenses.hidden = true;
+    licenses.id = 'third-party-notices';
+    licenses.textContent = notices;
+    document.body.append(licenses);
     return '<!doctype html>\n' + document.documentElement.outerHTML;
   }, {
     html: String(html.source), js: scripts[0].code,
-    css: styles.map(item => String(item.source)).join('\n'),
+    css: styles.map(item => String(item.source)).join('\n'), notices: notices.join('\n\n'),
   });
   await mkdir(dirname(destination), { recursive: true });
   await page.context().setOffline(true);
@@ -63,6 +75,67 @@ try {
     for (let i = 0; i < pixels.length; i += 4) if (pixels[i] > 30 || pixels[i + 1] > 30 || pixels[i + 2] > 30) bright++;
     return bright > 10000;
   });
+  assert.equal(await page.locator('meta[name="application-version"]').getAttribute('content'), '0.2.0');
+  assert.equal(await page.locator('.system-body-label').count(), 3);
+  await page.screenshot({ path: `${artifactStem}-system-desktop.png` });
+  const centerDisk = async expected => {
+    await page.waitForTimeout(200);
+    const count = await page.locator('#space-stage canvas').evaluate((canvas, expected) => {
+      const gl = canvas.getContext('webgl2');
+      const pixels = new Uint8Array(9 * 9 * 4);
+      gl.readPixels(Math.round(gl.drawingBufferWidth / 2) - 4, Math.round(gl.drawingBufferHeight / 2) - 4, 9, 9, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+      let found = 0;
+      for (let i = 0; i < pixels.length; i += 4)
+        if (Math.abs(pixels[i] - expected) < 3 && pixels[i] === pixels[i + 1] && pixels[i] === pixels[i + 2]) found++;
+      return found;
+    }, expected);
+    assert.ok(count > 20, `The centered sphere must render its actual unlit grey pixels (${expected}).`);
+  };
+  await centerDisk(136);
+  for (const [target, grey] of [['moon', 72], ['sun', 224]]) {
+    await page.getByLabel('目标天体', { exact: true }).selectOption(target);
+    await page.getByRole('button', { name: '朝向目标', exact: true }).click();
+    await centerDisk(grey);
+  }
+  for (const observer of ['sun', 'earth', 'moon']) {
+    await page.getByLabel('观测中心', { exact: true }).selectOption(observer);
+    for (const target of ['sun', 'earth', 'moon'].filter(id => id !== observer)) {
+      await page.getByLabel('目标天体', { exact: true }).selectOption(target);
+      await page.getByRole('button', { name: '朝向目标', exact: true }).click();
+      assert.equal(await page.locator('.system-body-label').count(), 3);
+      assert.equal(await page.locator('.system-body-data').count(), 2);
+    }
+  }
+  const scientificReadings = () => page.locator('.system-body-data').evaluateAll(sections => sections.map(section =>
+    [...section.querySelectorAll('dd')].slice(0, 7).map(value => value.textContent)));
+  const beforeScale = await scientificReadings();
+  await page.getByLabel('显示比例', { exact: true }).selectOption('physical');
+  assert.deepEqual(await scientificReadings(), beforeScale);
+  await page.getByLabel('显示比例', { exact: true }).selectOption('enhanced');
+  for (const month of ['01', '04', '07', '10']) {
+    await page.getByLabel('时间快照', { exact: true }).selectOption(`2026-${month}-01T00:00:00.000Z`);
+    assert.equal(await page.getByLabel('观测中心', { exact: true }).inputValue(), 'moon');
+    assert.equal(await page.getByLabel('目标天体', { exact: true }).inputValue(), 'earth');
+    const utc = await page.locator('[data-reading="utc"]').textContent();
+    const beforeZone = await scientificReadings();
+    for (const zone of ['Asia/Shanghai', 'America/New_York', 'UTC']) {
+      await page.getByLabel('显示时区', { exact: true }).selectOption(zone);
+      assert.equal(await page.locator('[data-reading="utc"]').textContent(), utc);
+      assert.deepEqual(await scientificReadings(), beforeZone);
+      if (zone === 'America/New_York') assert.match(await page.locator('[data-reading="civil"]').textContent(), month === '01' ? /GMT-5/ : /GMT-4/);
+    }
+  }
+  await page.screenshot({ path: `${artifactStem}-system-moon-observer.png` });
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: `${artifactStem}-system-mobile-debug.png` });
+  await page.getByRole('button', { name: '关闭科学调试', exact: true }).click();
+  await page.getByRole('button', { name: '朝向目标', exact: true }).click();
+  await centerDisk(136);
+  await page.screenshot({ path: `${artifactStem}-system-mobile.png` });
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 390);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.getByRole('button', { name: '天球坐标仪', exact: true }).click();
+  await page.waitForTimeout(200);
   await page.screenshot({ path: `${artifactStem}-desktop.png` });
   const canvasCursor = () => page.locator('canvas').evaluate(canvas => getComputedStyle(canvas).cursor);
   await page.mouse.move(350, 400);
@@ -87,6 +160,19 @@ try {
       gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
       return pixels;
     };
+    const rest = async () => {
+      let last = '', stable = 0;
+      for (let frame = 0; frame < 240; frame++) {
+        await new Promise(resolve => requestAnimationFrame(resolve));
+        const current = [...document.querySelectorAll('.space-label')]
+          .filter(label => label.style.visibility === 'visible').map(label => label.style.transform).join(';');
+        stable = current === last ? stable + 1 : 0;
+        last = current;
+        if (frame >= 12 && stable >= 4) return;
+      }
+      throw new Error('The camera did not settle within 240 rendered frames.');
+    };
+    await rest();
     const first = read();
     const difference = () => {
       const pixels = read();
@@ -97,7 +183,7 @@ try {
     let invertedDifference = 0;
     for (let quarter = 1; quarter <= 8; quarter++) {
       document.querySelector('#scene-input').dispatchEvent(new WheelEvent('wheel', { deltaY: Math.PI / 2 / 0.003, bubbles: true, cancelable: true }));
-      await new Promise(resolve => setTimeout(resolve, 700));
+      await rest();
       if (quarter === 2) invertedDifference = difference();
     }
     return { invertedDifference, fullTurnsDifference: difference() };
@@ -172,15 +258,18 @@ try {
   assert.deepEqual(errors, []);
   assert.deepEqual(externalRequests, []);
   await writeFile(destination, portable);
-  console.log(JSON.stringify({
+  const validation = {
+    version: '0.2.0',
     file: destination,
     bytes: (await stat(destination)).size,
-    validation: ['offline inline document', 'nonblank WebGL pixels', 'arrow/hand cursor lifecycle', 'two complete turns', 'location', 'UTC time', 'layers', 'camera motion', 'observer view', 'below-horizon toggle', 'mobile layout', 'Sun/Moon', 'topocentric readings', 'double-click line', 'bilingual term tooltip'],
+    validation: ['offline inline document', 'nonblank WebGL pixels', 'all three grey sphere pixels', 'all observer-target pairs', 'scientific debug panel', 'scale invariance', 'four snapshots', 'UTC/Beijing/New York incl DST', 'arrow/hand cursor lifecycle', 'two complete turns', 'location', 'UTC time', 'layers', 'camera motion', 'observer view', 'below-horizon toggle', 'mobile layout', 'legacy Sun/Moon', 'topocentric readings', 'double-click line', 'bilingual term tooltip'],
     spin,
     limitation: 'Direct file:// navigation is blocked by this cloud browser policy and was not validated.',
     browserErrors: errors.length,
     externalRequests: externalRequests.length,
-  }, null, 2));
+  };
+  await writeFile(`${artifactStem}-validation.json`, JSON.stringify(validation, null, 2) + '\n');
+  console.log(JSON.stringify(validation, null, 2));
 } finally {
   await browser.close();
 }

@@ -2,6 +2,37 @@
 
 Less Interface. More Universe.
 
+## v0.2.0 Local Observation Prototype
+
+The default view is now the Sun–Earth–Moon space system: a common SSB origin,
+J2000 mean-equator/equinox axes, offline Astronomy Engine ephemerides, independent
+Observer/Target controls, physical/enhanced scale modes, fixed time snapshots,
+time-zone display and a collapsible scientific debug panel. All three spheres
+use plain grey unlit materials. The `天球坐标仪` entry preserves the earlier
+Earth/ground coordinate instrument and its scientific definitions.
+
+- [v0.2.0 offline HTML](https://github.com/PhIIvynPath2002/PhyAstro/raw/refs/tags/v0.2.0/PhyAstro-0.2.0.html)
+- [v0.2.0 offline ZIP](https://github.com/PhIIvynPath2002/PhyAstro/raw/refs/tags/v0.2.0/PhyAstro-0.2.0-offline.zip)
+- [v0.2.0 tag files](https://github.com/PhIIvynPath2002/PhyAstro/tree/v0.2.0)
+- [Architecture, scientific conventions, changed files and limitations](docs/V0.2.0.md)
+- [Scientific validation record](docs/validation/v0.2.0-science.md)
+- [Machine-readable snapshots and comparison status](docs/validation/v0.2.0-science.json)
+- [Upgrade history](CHANGELOG.md)
+
+macOS 使用近期版本 Google Chrome，Windows 使用近期版本 Microsoft Edge。
+下载 HTML 后直接用浏览器打开；ZIP 包先解压再打开其中的 HTML。
+无须联网、npm 或本地服务器，需要 WebGL 2 与图形加速。
+也可从 Tags 下载 v0.2.0 源代码 ZIP，直接打开根目录中的 HTML。
+已在断网 Linux Chromium 中验证，尚未在真实 macOS 或 Windows 系统中验证。
+
+Independent JPL Horizons verification is **not complete**: the environment's
+network proxy blocks the API with HTTP 403. The report preserves that result;
+reference values and errors remain null. Calculations are geometric, with the
+library's estimated TT conversion, and are not precision navigation data.
+
+The following v0.1.3 documentation describes the preserved coordinate instrument;
+the v0.2.0 space frame and camera model are specified in `docs/V0.2.0.md`.
+
 ## 下载离线版 0.1.3
 
 - [单文件 HTML](https://github.com/PhIIvynPath2002/PhyAstro/raw/refs/tags/v0.1.3/PhyAstro-0.1.3.html)
@@ -96,7 +127,9 @@ written to `test-results/` and are not committed.
 - Activate the direction probe and click the sphere to choose a direction. Its
   inspector also accepts an exact right ascension and declination.
 - Escape closes the current tool. Location is saved locally when storage is
-  available. Time starts at the current UTC instant and stays fixed until edited.
+  available. The coordinate instrument receives the selected space-system UTC
+  instant when entered; direct compatibility-route entry starts at current UTC.
+  Time stays fixed until edited.
 - The canvas and spatial labels share the gesture surface. Labels accept wheel
   and drag; a tap still opens the inspector. Tool panels retain native editing and
   scrolling. Pointer capture keeps drags continuous across labels and the viewport.
@@ -121,6 +154,9 @@ Development remains local/offline. Public hosting and publication are deferred
 until the user chooses to prepare version 1.0.
 
 ## Scientific conventions
+
+This section applies to the retained coordinate instrument, not the new
+SSB/EQJ space scene. See `docs/V0.2.0.md` for the latter.
 
 The astronomy core is independent of rendering, DOM APIs, and UI state.
 

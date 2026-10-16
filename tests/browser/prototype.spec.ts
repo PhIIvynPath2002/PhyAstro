@@ -27,7 +27,7 @@ async function wheelInput(page: Page, delta: { deltaY?: number; deltaX?: number;
 }
 
 async function ready(page: Page) {
-  await page.goto('/');
+  await page.goto('/?view=coordinates');
   await expect(page.locator('canvas')).toBeVisible();
   await expect.poll(async () => (await state(page))?.drawCalls).toBeGreaterThan(10);
   await page.waitForTimeout(300);

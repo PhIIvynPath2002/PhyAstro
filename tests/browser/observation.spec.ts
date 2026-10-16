@@ -9,7 +9,7 @@ interface Snapshot {
 }
 const snapshot = (page: Page) => page.evaluate(() => (window as unknown as { __phyastro: Snapshot }).__phyastro);
 async function start(page: Page, ground = true) {
-  await page.goto('/');
+  await page.goto('/?view=coordinates');
   await expect.poll(async () => (await snapshot(page))?.bodies.length).toBe(2);
   if (ground) await page.getByRole('button', { name: '地面视角', exact: true }).click();
 }

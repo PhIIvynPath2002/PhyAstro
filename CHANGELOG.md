@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.3.0 — 2026-10-18
+
+- Preserve v0.2.0 geometric ephemeris, scales, snapshots and coordinate instrument.
+- Add 2K Earth/Moon global textures and static schematic emissive solar surface.
+- Add time-based Earth GAST/EQJ and lunar IAU body poses.
+- Add solar Lambert illumination, strict/debug ambient modes and finite-disc
+  physical eclipse shadows, with renderer-independent phase/occlusion tests.
+- Add explicit camera/center phase readings, solar directions and shadow status.
+- Separate primary views from the instrument's two submodes; retain camera states.
+- Add near-target inspection and optional camera-driven artistic UI lighting.
+- Embed maps and licenses in the offline HTML; retain editable image sources
+  and complete resource/approximation notes in the offline ZIP.
+- No new planets, runtime time propagation, live activity, atmosphere or MHD.
+- Independent JPL ephemeris validation remains pending; no accuracy certification.
+
 ## 0.2.0 — 2026-10-17
 
 - Add a unified offline Sun–Earth–Moon space system using Astronomy Engine

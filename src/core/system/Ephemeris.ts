@@ -32,7 +32,7 @@ export interface EphemerisProvider {
 }
 export function systemSnapshot(instant: Date, kind: PositionKind = 'geometric'): SystemSnapshot {
   astronomicalTime(instant);
-  if (kind !== 'geometric') throw new RangeError('Apparent positions are not implemented in v0.2.0.');
+  if (kind !== 'geometric') throw new RangeError('Apparent positions are not implemented.');
   const time = new AstroTime(instant);
   const engineBodies = { sun: Body.Sun, earth: Body.Earth, moon: Body.Moon };
   const utc = instant.toISOString();

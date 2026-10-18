@@ -30,6 +30,8 @@ const engineSource = await readFile(new URL('../node_modules/astronomy-engine/es
 const engineLicense = engineSource.match(/^\/\*\*([\s\S]*?)\*\//)?.[1];
 assert.ok(engineLicense?.includes('Permission is hereby granted'), 'The engine license must be preserved in the portable document.');
 notices.push(`astronomy-engine 2.1.19\n${engineLicense}`);
+for (const name of ['ASSETS-v0.3.0.md', 'licenses/CelestiaContent-credits.txt', 'licenses/GPL-2.0-or-later.txt'])
+  notices.push(`${name}\n${await readFile(new URL(`../docs/${name}`, import.meta.url), 'utf8')}`);
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
   args: ['--no-sandbox', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
@@ -73,30 +75,43 @@ try {
     gl.readPixels(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     let bright = 0;
     for (let i = 0; i < pixels.length; i += 4) if (pixels[i] > 30 || pixels[i + 1] > 30 || pixels[i + 2] > 30) bright++;
-    return bright > 10000;
+    // Strict night hemispheres are now black; require substantial lit pixels,
+    // not the old all-grey sphere area. Detailed terminator tests run separately.
+    return bright > 1000;
   });
-  assert.equal(await page.locator('meta[name="application-version"]').getAttribute('content'), '0.2.0');
+  assert.equal(await page.locator('meta[name="application-version"]').getAttribute('content'), '0.3.0');
   assert.equal(await page.locator('.system-body-label').count(), 3);
   await page.screenshot({ path: `${artifactStem}-system-desktop.png` });
-  const centerDisk = async expected => {
+  const centerDisk = async (solar = false) => {
     await page.waitForTimeout(200);
-    const count = await page.locator('#space-stage canvas').evaluate((canvas, expected) => {
+    const count = await page.locator('#space-stage canvas').evaluate((canvas, solar) => {
       const gl = canvas.getContext('webgl2');
-      const pixels = new Uint8Array(9 * 9 * 4);
-      gl.readPixels(Math.round(gl.drawingBufferWidth / 2) - 4, Math.round(gl.drawingBufferHeight / 2) - 4, 9, 9, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+      const pixels = new Uint8Array(21 * 21 * 4);
+      gl.readPixels(Math.round(gl.drawingBufferWidth / 2) - 10, Math.round(gl.drawingBufferHeight / 2) - 10, 21, 21, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
       let found = 0;
       for (let i = 0; i < pixels.length; i += 4)
-        if (Math.abs(pixels[i] - expected) < 3 && pixels[i] === pixels[i + 1] && pixels[i] === pixels[i + 2]) found++;
+        if (solar ? pixels[i] > 200 && pixels[i + 1] > 150 && pixels[i] > pixels[i + 2]
+          : Math.max(pixels[i], pixels[i + 1], pixels[i + 2]) > 20) found++;
       return found;
-    }, expected);
-    assert.ok(count > 20, `The centered sphere must render its actual unlit grey pixels (${expected}).`);
+    }, solar);
+    assert.ok(count > 20, `The centered sphere must render illuminated texture pixels (solar=${solar}).`);
   };
-  await centerDisk(136);
-  for (const [target, grey] of [['moon', 72], ['sun', 224]]) {
+  await centerDisk();
+  for (const target of ['moon', 'sun']) {
     await page.getByLabel('目标天体', { exact: true }).selectOption(target);
     await page.getByRole('button', { name: '朝向目标', exact: true }).click();
-    await centerDisk(grey);
+    await centerDisk(target === 'sun');
   }
+  await page.getByLabel('UI Lighting', { exact: true }).uncheck();
+  assert.match(await page.locator('[data-light="ui"]').textContent(), /Off/);
+  await page.getByLabel('UI Lighting', { exact: true }).check();
+  await page.getByLabel('时间快照', { exact: true }).selectOption('2026-03-03T11:34:00.000Z');
+  assert.match(await page.locator('[data-light="moon-shadow"]').textContent(), /umbra/);
+  await page.getByLabel('表面光照', { exact: true }).selectOption('debug');
+  assert.match(await page.locator('[data-light="ambient"]').textContent(), /3.5%/);
+  await page.getByLabel('表面光照', { exact: true }).selectOption('strict');
+  await page.getByLabel('时间快照', { exact: true }).selectOption('2026-01-01T00:00:00.000Z');
+  assert.equal(await page.locator('.primary-navigation button').count(), 2);
   for (const observer of ['sun', 'earth', 'moon']) {
     await page.getByLabel('观测中心', { exact: true }).selectOption(observer);
     for (const target of ['sun', 'earth', 'moon'].filter(id => id !== observer)) {
@@ -130,7 +145,7 @@ try {
   await page.screenshot({ path: `${artifactStem}-system-mobile-debug.png` });
   await page.getByRole('button', { name: '关闭科学调试', exact: true }).click();
   await page.getByRole('button', { name: '朝向目标', exact: true }).click();
-  await centerDisk(136);
+  await centerDisk();
   await page.screenshot({ path: `${artifactStem}-system-mobile.png` });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth), 390);
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -259,10 +274,10 @@ try {
   assert.deepEqual(externalRequests, []);
   await writeFile(destination, portable);
   const validation = {
-    version: '0.2.0',
+    version: '0.3.0',
     file: destination,
     bytes: (await stat(destination)).size,
-    validation: ['offline inline document', 'nonblank WebGL pixels', 'all three grey sphere pixels', 'all observer-target pairs', 'scientific debug panel', 'scale invariance', 'four snapshots', 'UTC/Beijing/New York incl DST', 'arrow/hand cursor lifecycle', 'two complete turns', 'location', 'UTC time', 'layers', 'camera motion', 'observer view', 'below-horizon toggle', 'mobile layout', 'legacy Sun/Moon', 'topocentric readings', 'double-click line', 'bilingual term tooltip'],
+    validation: ['offline inline document and embedded textures/licenses', 'nonblank WebGL pixels', 'Earth/Moon illuminated textures and emissive Sun pixels', 'UI Lighting toggle', 'eclipse snapshot umbra reading', 'strict/debug illumination toggle', 'two primary views', 'all observer-target pairs', 'scientific debug panel', 'scale invariance', 'four snapshots', 'UTC/Beijing/New York incl DST', 'arrow/hand cursor lifecycle', 'two complete turns', 'location', 'UTC time', 'layers', 'camera motion', 'observer view', 'below-horizon toggle', 'mobile layout', 'legacy Sun/Moon', 'topocentric readings', 'double-click line', 'bilingual term tooltip'],
     spin,
     limitation: 'Direct file:// navigation is blocked by this cloud browser policy and was not validated.',
     browserErrors: errors.length,

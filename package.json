@@ -1,13 +1,15 @@
 {
   "name": "phyastro",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
     "build:offline": "node scripts/export-offline.mjs",
+    "package:offline": "node scripts/package-offline.mjs",
     "report:science": "node scripts/science-report.mjs",
+    "report:rendering": "node scripts/rendering-report.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:browser": "playwright test"

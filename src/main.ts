@@ -8,12 +8,16 @@ import { SystemStore } from './core/system/Store';
 import { SystemScene } from './rendering/system/SystemScene';
 import { SystemUI } from './ui/SystemUI';
 import './system.css';
+import { viewNavigation } from './ui/ViewNavigation';
+import type { CameraState } from './interaction/CameraController';
 
 const app = document.querySelector<HTMLElement>('#app')!;
 const coordinateStore = new Store();
 const systemStore = new SystemStore();
 let disposeCurrent = () => {};
 let diagnostics: () => unknown = () => ({});
+let spaceView: ReturnType<SystemScene['saveView']> | undefined;
+let coordinateView: CameraState | undefined;
 
 function launch(mode: 'space' | 'coordinates', synchronize = true): void {
   disposeCurrent();
@@ -33,9 +37,11 @@ function launch(mode: 'space' | 'coordinates', synchronize = true): void {
       app.append(surface, uiRoot, failure);
       surface.addEventListener('render-error', event => { failure.hidden = false; failure.textContent = (event as CustomEvent<string>).detail; });
       const scene = new SystemScene(surface, systemStore, coordinateStore);
-      const ui = new SystemUI(uiRoot, systemStore, scene, () => launch('coordinates'));
+      const ui = new SystemUI(uiRoot, systemStore, scene);
+      viewNavigation(uiRoot, mode, launch);
+      if (spaceView) scene.restoreView(spaceView);
       diagnostics = () => scene.diagnostics;
-      disposeCurrent = () => { ui.dispose(); scene.dispose(); };
+      disposeCurrent = () => { spaceView = scene.saveView(); ui.dispose(); scene.dispose(); };
       return;
     }
     if (synchronize) coordinateStore.update({ instant: new Date(systemStore.state.snapshot.utc) });
@@ -46,12 +52,9 @@ function launch(mode: 'space' | 'coordinates', synchronize = true): void {
     const store = coordinateStore;
     const scene = new CelestialScene(surface, app.querySelector('#labels')!, store);
     const ui = new AppUI(app.querySelector('#interface')!, store, scene);
-    app.querySelector('.version')!.textContent = '0.2.0';
-    const back = document.createElement('button');
-    back.textContent = '空间';
-    back.setAttribute('aria-label', '返回空间系统');
-    back.addEventListener('click', () => launch('space'));
-    app.querySelector('.view-switch')!.append(back);
+    app.querySelector('.version')!.textContent = '0.3.0';
+    viewNavigation(app.querySelector('#interface')!, mode, launch);
+    if (coordinateView) scene.controller.restore(coordinateView);
     diagnostics = () => ({ mode: 'coordinates',
       observer: { ...store.state.observer },
       instant: store.state.instant.toISOString(),
@@ -69,7 +72,7 @@ function launch(mode: 'space' | 'coordinates', synchronize = true): void {
       probe: store.state.probe && { ...store.state.probe },
       drawCalls: scene.renderer.info.render.calls,
     });
-    disposeCurrent = () => { ui.dispose(); scene.dispose(); };
+    disposeCurrent = () => { coordinateView = scene.controller.save(); ui.dispose(); scene.dispose(); };
   } catch (error) {
     console.error(error);
     if (!failure.isConnected) app.append(failure);

@@ -10,10 +10,14 @@ import { CameraController } from '../../interaction/CameraController';
 import { toAstronomyVector, toRenderVector } from '../coordinates';
 import { KM_PER_RENDER_UNIT, localRenderPosition, renderRadiusKm } from './Scale';
 import { bodyVisibility, type RenderSphere, type Visibility } from './Visibility';
+import { bodyPose } from '../../core/system/BodyPose';
+import { illumination, solarVisibility, unit } from '../../core/system/Illumination';
+import { loadSurfaceTextures, solarTexture, surfaceMaterial } from './SurfaceMaterial';
+import type { CameraState } from '../../interaction/CameraController';
 
 interface RenderedBody {
   id: SystemBodyId;
-  mesh: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial>;
+  mesh: THREE.Mesh<THREE.SphereGeometry, THREE.MeshBasicMaterial | THREE.ShaderMaterial>;
   label: HTMLButtonElement;
   renderRadiusKm: number;
   visibility: Visibility;
@@ -39,6 +43,11 @@ export class SystemScene {
   private currentSpheres: RenderSphere[] = [];
   private raycaster = new THREE.Raycaster();
   private forceSummary = true;
+  private textures: THREE.Texture[] = [];
+  private lightingSnapshot?: ObservationState['snapshot'];
+  private illuminationData?: ReturnType<typeof illumination>;
+  private uiSun = { x: 0, y: 0, strength: 0 };
+  private lastLightingFrame = performance.now();
   onFrame?: () => void;
 
   constructor(private root: HTMLElement, private store: SystemStore, private coordinates: CoordinateStore) {
@@ -55,9 +64,15 @@ export class SystemScene {
     this.labelRoot.className = 'system-labels';
     root.append(this.labelRoot);
     this.scene.add(this.references);
-    const colors = { sun: 0xe0e0e0, earth: 0x888888, moon: 0x484848 };
+    const maps = loadSurfaceTextures(() => { this.forceSummary = true; });
+    const sunMap = solarTexture();
+    this.textures = [maps.earth, maps.moon, sunMap];
     for (const id of BODY_IDS) {
-      const mesh = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 40), new THREE.MeshBasicMaterial({ color: colors[id] }));
+      const body = store.state.snapshot.bodies[id];
+      const material = id === 'sun' ? new THREE.MeshBasicMaterial({ map: sunMap })
+        : surfaceMaterial(maps[id], body.physicalRadiusKm, store.state.snapshot.bodies.sun.physicalRadiusKm,
+          store.state.snapshot.bodies[id === 'earth' ? 'moon' : 'earth'].physicalRadiusKm);
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(1, 96, 64), material);
       mesh.name = id;
       const label = document.createElement('button');
       label.className = 'system-body-label';
@@ -184,6 +199,21 @@ export class SystemScene {
   private onWheelAim = (event: WheelEvent): void => { if (!event.ctrlKey && !event.metaKey) this.unlockAim(); };
   private onKeyAim = (event: KeyboardEvent): void => { if (event.key.startsWith('Arrow')) this.unlockAim(); };
   focusTarget(): void { this.locked = true; this.forceSummary = true; this.renderFrame(); }
+  approachTarget(): void {
+    const state = this.store.state, target = state.snapshot.bodies[state.target];
+    const away = unit(subtract(this.cameraKm, target.positionKm));
+    const radius = renderRadiusKm(target.id, target.physicalRadiusKm, target.physicalRadiusKm * 4,
+      this.camera.fov, this.root.clientHeight, state.scale);
+    // Fit an inspected disc below navigation and within narrow window widths.
+    const pixelRadius = Math.min(this.root.clientWidth * 0.34, this.root.clientHeight * 0.28,
+      Math.max(30, this.root.clientHeight / 2 - 180));
+    const focalPixels = this.root.clientHeight / (2 * Math.tan(this.camera.fov * Math.PI / 360));
+    const distance = radius / Math.sin(Math.atan(pixelRadius / focalPixels));
+    const point = add(target.positionKm, away.map(value => value * distance) as unknown as VectorKm);
+    this.navigationCamera.position.copy(localRenderPosition(point, state.snapshot.bodies[state.observer].positionKm));
+    this.previousCameraKm = null;
+    this.focusTarget();
+  }
   recenter(): void {
     this.locked = false;
     this.aimOffset.identity();
@@ -232,6 +262,7 @@ export class SystemScene {
       rendered.mesh.visible = true;
       return { id, center: rendered.mesh.position.clone(), radius: rendered.renderRadiusKm / KM_PER_RENDER_UNIT };
     });
+    this.updateLighting();
     const nearestSurface = Math.min(...this.currentSpheres.map(body => body.center.length() - body.radius));
     this.camera.near = Math.max(1e-10, Math.min(0.001, nearestSurface / 4));
     this.camera.far = Math.max(1, ...this.currentSpheres.map(body => body.center.length() + body.radius)) * 1.2;
@@ -239,6 +270,7 @@ export class SystemScene {
     if (this.locked) this.camera.lookAt(this.bodies.get(state.target)!.mesh.position);
     else this.camera.quaternion.copy(this.navigationCamera.quaternion).multiply(this.aimOffset);
     this.camera.updateMatrixWorld();
+    this.updateUiLighting();
     const referenceRadiusKm = Math.max(state.snapshot.bodies.earth.physicalRadiusKm * 3.6,
       this.bodies.get('earth')!.renderRadiusKm * 2.7);
     this.references.position.copy(localRenderPosition(state.snapshot.bodies.earth.positionKm, candidate));
@@ -250,6 +282,53 @@ export class SystemScene {
       this.forceSummary = false;
       this.onFrame?.();
     }
+  }
+  private updateLighting(): void {
+    const state = this.store.state;
+    if (this.lightingSnapshot !== state.snapshot) {
+      const instant = new Date(state.snapshot.utc);
+      for (const id of BODY_IDS) {
+        const body = this.bodies.get(id)!;
+        const pose = bodyPose(id, instant);
+        body.mesh.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(
+          toRenderVector(pose.prime), toRenderVector(pose.north), toRenderVector(pose.east).negate()));
+        if (body.mesh.material instanceof THREE.ShaderMaterial) {
+          const inverse = body.mesh.quaternion.clone().invert();
+          const origin = state.snapshot.bodies[id].positionKm;
+          const blocker = id === 'earth' ? 'moon' : 'earth';
+          body.mesh.material.uniforms.sunLocalKm.value.copy(toRenderVector(subtract(state.snapshot.bodies.sun.positionKm, origin)).applyQuaternion(inverse));
+          body.mesh.material.uniforms.blockerLocalKm.value.copy(toRenderVector(subtract(state.snapshot.bodies[blocker].positionKm, origin)).applyQuaternion(inverse));
+        }
+      }
+      this.lightingSnapshot = state.snapshot;
+    }
+    for (const body of this.bodies.values()) if (body.mesh.material instanceof THREE.ShaderMaterial)
+      body.mesh.material.uniforms.ambient.value = state.lighting === 'strict' ? 0 : 0.035;
+  }
+  private updateUiLighting(): void {
+    const state = this.store.state;
+    const sunDirection = toRenderVector(unit(subtract(state.snapshot.bodies.sun.positionKm, this.cameraKm)))
+      .applyQuaternion(this.camera.quaternion.clone().invert());
+    const inside = BODY_IDS.some(id => length(subtract(state.snapshot.bodies[id].positionKm, this.cameraKm)) <= state.snapshot.bodies[id].physicalRadiusKm);
+    let transmission = 1;
+    if (!inside) for (const blocker of ['earth', 'moon'] as const)
+      transmission = Math.min(transmission, solarVisibility(this.cameraKm, state.snapshot, blocker).fraction);
+    const strength = state.uiLighting ? Math.max(0, -sunDirection.z) * transmission * 0.18 : 0;
+    const now = performance.now(), blend = 1 - Math.exp(-Math.min(0.1, (now - this.lastLightingFrame) / 1000) / 0.18);
+    this.lastLightingFrame = now;
+    this.uiSun.x += (sunDirection.x - this.uiSun.x) * blend;
+    this.uiSun.y += (sunDirection.y - this.uiSun.y) * blend;
+    this.uiSun.strength = state.uiLighting ? this.uiSun.strength + (strength - this.uiSun.strength) * blend : 0;
+    const style = this.root.parentElement!.style;
+    style.setProperty('--sun-x', `${50 + this.uiSun.x * 50}%`);
+    style.setProperty('--sun-y', `${50 - this.uiSun.y * 50}%`);
+    style.setProperty('--sun-ui', String(this.uiSun.strength));
+    this.illuminationData = illumination(state.snapshot, this.cameraKm, state.observer);
+  }
+  saveView() { return { navigation: this.controller.save(), aim: this.aimOffset.toArray(), locked: this.locked }; }
+  restoreView(view: { navigation: CameraState; aim: number[]; locked: boolean }): void {
+    this.controller.restore(view.navigation); this.aimOffset.fromArray(view.aim); this.locked = view.locked;
+    this.forceSummary = true; this.renderFrame();
   }
   private layoutLabels(referenceRadiusKm: number): void {
     const boxes: { left: number; right: number; top: number; bottom: number }[] = [];
@@ -269,7 +348,7 @@ export class SystemScene {
       let placed = false;
       for (const [dx, dy] of [[gap, -h / 2], [-gap - w, -h / 2], [10, gap], [-w - 10, -gap - h]]) {
         const box = { left: x + dx, top: y + dy, right: x + dx + w, bottom: y + dy + h };
-        if (box.left < 12 || box.right > width - 12 || box.top < 130 || box.bottom > height - 80) continue;
+        if (box.left < 12 || box.right > width - 12 || box.top < 170 || box.bottom > height - 80) continue;
         if (boxes.some(b => box.left < b.right + 6 && box.right > b.left - 6 && box.top < b.bottom + 6 && box.bottom > b.top - 6)) continue;
         boxes.push(box);
         body.label.style.transform = `translate(${box.left}px, ${box.top}px)`;
@@ -281,7 +360,7 @@ export class SystemScene {
     for (const label of this.referenceLabels) {
       const projected = label.direction.clone().multiplyScalar(referenceRadiusKm / KM_PER_RENDER_UNIT).add(this.references.position).project(this.camera);
       const x = (projected.x + 1) * width / 2, y = (1 - projected.y) * height / 2;
-      label.element.hidden = !this.references.visible || projected.z < -1 || projected.z > 1 || x < 20 || x > width - 150 || y < 140 || y > height - 90
+      label.element.hidden = !this.references.visible || projected.z < -1 || projected.z > 1 || x < 20 || x > width - 150 || y < 175 || y > height - 90
         || boxes.some(b => x < b.right && x + 140 > b.left && y < b.bottom && y + 20 > b.top);
       label.element.style.transform = `translate(${x + 10}px, ${y}px)`;
     }
@@ -294,6 +373,10 @@ export class SystemScene {
   get diagnostics() {
     const state = this.store.state;
     return { mode: 'space' as const, observerId: state.observer, targetId: state.target,
+      lighting: state.lighting, uiLighting: state.uiLighting, illumination: this.illuminationData,
+      texturesReady: this.textures.every(texture => Boolean((texture.image as HTMLImageElement | HTMLCanvasElement | undefined)?.width)),
+      sunCameraDirection: toAstronomyVector(this.bodies.get('sun')!.mesh.position.clone().normalize()),
+      uiSun: { ...this.uiSun }, shadowMode: 'Finite angular discs / physical surface / uniform solar brightness',
       instant: state.snapshot.utc, snapshot: state.snapshot, timeZone: state.timeZone, scale: state.scale,
       cameraKm: [...this.cameraKm], cameraOffsetKm: subtract(this.cameraKm, state.snapshot.bodies[state.observer].positionKm),
       cameraQuaternion: this.camera.quaternion.toArray(), cameraUp: this.navigationCamera.up.toArray(),
@@ -305,6 +388,7 @@ export class SystemScene {
         const body = this.bodies.get(id)!;
         const screen = body.mesh.position.clone().project(this.camera);
         return { id, renderRadiusKm: body.renderRadiusKm, physicalRadiusKm: state.snapshot.bodies[id].physicalRadiusKm,
+          orientation: body.mesh.quaternion.toArray(),
           renderPosition: body.mesh.position.toArray(), visibility: body.visibility,
           screen: [(screen.x + 1) * this.root.clientWidth / 2, (1 - screen.y) * this.root.clientHeight / 2, screen.z],
           measurement: id === state.observer ? null : measure(state.snapshot, state.observer, id) };
@@ -320,6 +404,7 @@ export class SystemScene {
     this.root.removeEventListener('keydown', this.onKeyAim, true);
     this.renderer.domElement.removeEventListener('webglcontextlost', this.contextLost);
     for (const body of this.bodies.values()) { body.mesh.geometry.dispose(); body.mesh.material.dispose(); }
+    this.textures.forEach(texture => texture.dispose());
     for (const line of this.references.children) if (line instanceof THREE.Line) { line.geometry.dispose(); (line.material as THREE.Material).dispose(); }
     this.renderer.dispose();
     this.renderer.forceContextLoss();

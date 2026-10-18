@@ -1,0 +1,39 @@
+{
+  "version": "0.3.0",
+  "file": "/workspace/PhyAstro-0.3.0.html",
+  "bytes": 1736581,
+  "validation": [
+    "offline inline document and embedded textures/licenses",
+    "nonblank WebGL pixels",
+    "Earth/Moon illuminated textures and emissive Sun pixels",
+    "UI Lighting toggle",
+    "eclipse snapshot umbra reading",
+    "strict/debug illumination toggle",
+    "two primary views",
+    "all observer-target pairs",
+    "scientific debug panel",
+    "scale invariance",
+    "four snapshots",
+    "UTC/Beijing/New York incl DST",
+    "arrow/hand cursor lifecycle",
+    "two complete turns",
+    "location",
+    "UTC time",
+    "layers",
+    "camera motion",
+    "observer view",
+    "below-horizon toggle",
+    "mobile layout",
+    "legacy Sun/Moon",
+    "topocentric readings",
+    "double-click line",
+    "bilingual term tooltip"
+  ],
+  "spin": {
+    "invertedDifference": 1.6447131944444444,
+    "fullTurnsDifference": 0
+  },
+  "limitation": "Direct file:// navigation is blocked by this cloud browser policy and was not validated.",
+  "browserErrors": 0,
+  "externalRequests": 0
+}

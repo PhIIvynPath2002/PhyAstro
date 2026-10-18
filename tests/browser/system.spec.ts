@@ -37,16 +37,16 @@ async function diskPixels(page: Page, id: SystemBodyId) {
     const gl = (canvas as HTMLCanvasElement).getContext('webgl2')!;
     const scale = gl.drawingBufferWidth / canvas.clientWidth;
     const x = Math.round(input.screen[0] * scale), y = gl.drawingBufferHeight - Math.round(input.screen[1] * scale);
-    if (x < 4 || y < 4 || x + 4 >= gl.drawingBufferWidth || y + 4 >= gl.drawingBufferHeight) return 0;
-    const pixels = new Uint8Array(9 * 9 * 4);
-    gl.readPixels(x - 4, y - 4, 9, 9, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    if (x < 10 || y < 10 || x + 10 >= gl.drawingBufferWidth || y + 10 >= gl.drawingBufferHeight) return 0;
+    const pixels = new Uint8Array(21 * 21 * 4);
+    gl.readPixels(x - 10, y - 10, 21, 21, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
     let count = 0;
-    for (let i = 0; i < pixels.length; i += 4) if (pixels[i] > 40 && pixels[i] === pixels[i + 1] && pixels[i] === pixels[i + 2]) count++;
+    for (let i = 0; i < pixels.length; i += 4) if (Math.max(pixels[i], pixels[i + 1], pixels[i + 2]) > 20) count++;
     return count;
   }, body);
 }
 
-test('default snapshot renders unlit grey Earth and Moon and retains all three bodies', async ({ page }) => {
+test('default snapshot renders textured illuminated Earth and Moon and retains all three bodies', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 1440, height: 1000 });

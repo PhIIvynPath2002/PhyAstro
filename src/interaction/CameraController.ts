@@ -12,6 +12,10 @@ export interface OrbitLimits {
   minimumDistance?: () => number;
   maximumDistance?: () => number;
 }
+export interface CameraState {
+  position: number[]; up: number[]; skyPosition: number[]; skyUp: number[];
+  orbitPosition: number[]; orbitUp: number[]; skyFov: number; skyInitialized: boolean; fov: number;
+}
 
 export class CameraController {
   controls: TrackballControls;
@@ -102,6 +106,23 @@ export class CameraController {
 
   get isInteracting(): boolean {
     return this.pointers.size > 0 || Math.abs(this.pitch) + Math.abs(this.yaw) + Math.abs(this.logZoom) > 0;
+  }
+
+  save(): CameraState {
+    return { position: this.camera.position.toArray(), up: this.camera.up.toArray(),
+      skyPosition: this.skyCamera.position.toArray(), skyUp: this.skyCamera.up.toArray(),
+      orbitPosition: this.orbitPosition.toArray(), orbitUp: this.orbitUp.toArray(), skyFov: this.skyFov,
+      skyInitialized: this.skyInitialized, fov: this.camera.fov };
+  }
+  restore(state: CameraState): void {
+    this.interrupt();
+    this.camera.position.fromArray(state.position); this.camera.up.fromArray(state.up);
+    this.skyCamera.position.fromArray(state.skyPosition); this.skyCamera.up.fromArray(state.skyUp);
+    this.skyCamera.lookAt(0, 0, 0);
+    this.orbitPosition.fromArray(state.orbitPosition); this.orbitUp.fromArray(state.orbitUp);
+    this.skyInitialized = state.skyInitialized; this.skyFov = state.skyFov; this.camera.fov = state.fov;
+    this.camera.lookAt(0, 0, 0); this.camera.updateProjectionMatrix(); this.syncObserver();
+    this.controls.update();
   }
 
   private onWheel = (event: WheelEvent): void => {

@@ -2,6 +2,35 @@
 
 Less Interface. More Universe.
 
+## v0.3.0 Scientific Space Rendering Prototype
+
+新增太阳自发光表面示意、2K 地球/月球真实全球纹理、按快照更新的姿态、
+太阳驱动的昼夜分界与月相、有限太阳盘面解析本影/半影，以及可关闭的艺术化
+UI 光影反馈。科学位置、物理半径、距离与旧版天球坐标仪均保留。
+
+- [下载离线 HTML](https://github.com/PhIIvynPath2002/PhyAstro/raw/refs/tags/v0.3.0/PhyAstro-0.3.0.html)，直接用近期 Chrome（macOS）或 Edge（Windows）打开。
+- [下载完整离线 ZIP](https://github.com/PhIIvynPath2002/PhyAstro/raw/refs/tags/v0.3.0/PhyAstro-0.3.0-offline.zip)，含同一 HTML、完整源码、科学说明、纹理原文件及许可，先解压再打开 HTML。
+- [v0.3.0 标签文件](https://github.com/PhIIvynPath2002/PhyAstro/tree/v0.3.0)；也可在 Tags 下载源代码 ZIP，直接打开根目录中的 HTML，无须构建。
+- 一级导航为「天球坐标仪 / 宇宙空间观测」；天球与地面属于坐标仪子模式。
+- 可用「近观目标」查看月相和地球表面；严格太阳光模式下夜侧及全食月面自然变黑。
+- 新增食影快照是几何实验，不是接触时刻预报；增强模式不是精确食象轮廓。
+- [模型、架构和限制](docs/V0.3.0.md) · [纹理来源和许可](docs/ASSETS-v0.3.0.md)
+- [科学与图形验证](docs/validation/v0.3.0-tests.md) · [更新记录](CHANGELOG.md)
+
+所有运行资源离线内置，无 CDN、星历 API、账户或服务器要求，需要 WebGL 2。
+独立 JPL 星历精度对照仍未完成；太阳纹理不是实测活动，食影模型无大气红月。
+实际 macOS/Windows 性能和交互仍需用户确认。
+
+离线交付重建（开发环境需 Node.js 24、npm 11、Chromium；ZIP 打包另需 `zip`）：
+
+```sh
+npm ci
+npm test
+npm run build
+npm run build:offline -- PhyAstro-0.3.0.html
+npm run package:offline -- dist/PhyAstro-0.3.0-offline.zip
+```
+
 ## v0.2.0 Local Observation Prototype
 
 The default view is now the Sun–Earth–Moon space system: a common SSB origin,

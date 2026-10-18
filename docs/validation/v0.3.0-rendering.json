@@ -1,0 +1,1326 @@
+{
+  "version": "0.3.0",
+  "generatedAtUTC": "2026-10-18T09:25:35.188Z",
+  "independentEphemerisValidation": "Not completed; prior Horizons CONNECT 403 is recorded in v0.2.0-science.json. No new external reference claim.",
+  "shadowModel": "Uniform-brightness angular circles; planar disc overlap; physical surface/radii; no atmosphere or contact-time accuracy claim.",
+  "assets": [
+    {
+      "file": "src/assets/earth.jpg",
+      "bytes": 357759,
+      "sha256": "b13acc250dd391b8d705412a27f61d83571b57a7105a0b2e1e926317db2a02f0"
+    },
+    {
+      "file": "src/assets/moon.jpg",
+      "bytes": 290712,
+      "sha256": "a503f84809ec37244dc7151eb382f8b8a983c6d6af7a38baa1e84d497093e5d9"
+    },
+    {
+      "file": "src/assets/source/earth.png",
+      "bytes": 9867574,
+      "sha256": "6049161ead5400d4f290c3b1d2f51c5dd3f35054aa7fcaad2c5b8a07fe35acc0"
+    },
+    {
+      "file": "src/assets/source/moon.jpg",
+      "bytes": 1026593,
+      "sha256": "afcd9bf3dc75b1a15a005f8f11ddb0ef0232847797eb1d76aac0c73392fd8768"
+    }
+  ],
+  "snapshots": [
+    {
+      "utc": "2026-01-01T00:00:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-01-01T00:00:00.000Z",
+        "julianDateUT": 2461041.5,
+        "julianDateTT": 2461041.500868651,
+        "deltaTSeconds": 75.05144459428266,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -459504.07762632944,
+              -767603.991265621,
+              -311332.26565681736
+            ],
+            "utc": "2026-01-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9496.50086865098,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              -26533870.035675574,
+              132063429.69351058,
+              57268626.04473052
+            ],
+            "utc": "2026-01-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9496.50086865098,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              -26389623.112345356,
+              132353033.181875,
+              57428792.5629649
+            ],
+            "utc": "2026-01-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9496.50086865098,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 34.10889955010082,
+        "illuminatedFraction": 0.9139866212841965,
+        "towardSun": [
+          0.1759141034407775,
+          -0.9031118409608111,
+          -0.3917183055806835
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            -0.17927764202517454,
+            0.9837984283851217,
+            0.0004235290524322851
+          ],
+          "east": [
+            -0.9837952485414541,
+            -0.17927813948043247,
+            0.0025015298705011587
+          ],
+          "north": [
+            0.0025369306556934346,
+            0.00003180250723691228,
+            0.9999967814805449
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            -0.3807319364312499,
+            -0.8585337852447521,
+            -0.34345732220267
+          ],
+          "east": [
+            0.9246487456055685,
+            -0.35017078607638513,
+            -0.14968339196014774
+          ],
+          "north": [
+            0.008239528588420291,
+            -0.37456662981633115,
+            0.9271633890510755
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            -0.9378383010014548,
+            0.2467433259601656,
+            0.2440841090051142
+          ],
+          "east": [
+            -0.3247906153352063,
+            -0.8718530513407388,
+            -0.36658329620704344
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-04-01T00:00:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-04-01T00:00:00.000Z",
+        "julianDateUT": 2461131.5,
+        "julianDateTT": 2461131.5008704015,
+        "deltaTSeconds": 75.20268047810532,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -364491.89304152614,
+              -759330.0037893195,
+              -309785.4729467242
+            ],
+            "utc": "2026-04-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9586.500870401394,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              -147124073.91082066,
+              -26722028.173709203,
+              -11563478.623893932
+            ],
+            "utc": "2026-04-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9586.500870401394,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              -147513535.87303075,
+              -26705506.839362007,
+              -11569346.626102319
+            ],
+            "utc": "2026-04-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9586.500870401394,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 12.88408638386204,
+        "illuminatedFraction": 0.9874115815978436,
+        "towardSun": [
+          0.9820236995984062,
+          0.17315614072197807,
+          0.07514256022607944
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            -0.9875953072222416,
+            -0.15700024268202534,
+            0.002536326160230404
+          ],
+          "east": [
+            0.15699981948744893,
+            -0.9875985634217131,
+            -0.00036634447868915933
+          ],
+          "north": [
+            0.0025623882442718754,
+            0.000036402661337275736,
+            0.9999967164152749
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            0.9935390580654442,
+            -0.10059188535391635,
+            -0.052549145562746376
+          ],
+          "east": [
+            0.1129495425275997,
+            0.9215822971731045,
+            0.3713872243090087
+          ],
+          "north": [
+            0.011069821192598634,
+            -0.3749231149690407,
+            0.9269898148958678
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            0.991537507445577,
+            0.012555716766423867,
+            -0.12921193948352394
+          ],
+          "east": [
+            0.04339347835481195,
+            0.9060090319718247,
+            0.4210280750992118
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-07-01T00:00:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-07-01T00:00:00.000Z",
+        "julianDateUT": 2461222.5,
+        "julianDateTT": 2461222.5008721794,
+        "deltaTSeconds": 75.35628697369248,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -272843.5343447062,
+              -740462.215824004,
+              -303634.51475453505
+            ],
+            "utc": "2026-07-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9677.500872179247,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              23086271.366264533,
+              -138617220.42711368,
+              -60070940.42196982
+            ],
+            "utc": "2026-07-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9677.500872179247,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              23223114.68156032,
+              -138955770.25281063,
+              -60243248.62589636
+            ],
+            "utc": "2026-07-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9677.500872179247,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 11.465909166827073,
+        "illuminatedFraction": 0.9900215772679579,
+        "towardSun": [
+          -0.15409823537024914,
+          0.9064850590020791,
+          0.39311394233958724
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            0.15166650312498542,
+            -0.9884316561454057,
+            -0.00036463610518686513
+          ],
+          "east": [
+            0.9884283285104004,
+            0.15166693875552134,
+            -0.0025649730339959184
+          ],
+          "north": [
+            0.0025906037857943245,
+            0.000028603834711618967,
+            0.9999966439712915
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            -0.38352132650402143,
+            0.8542818640966073,
+            0.35087588801771663
+          ],
+          "east": [
+            -0.9234492788751898,
+            -0.3598171616270367,
+            -0.13331556377090717
+          ],
+          "north": [
+            0.012362097778600097,
+            -0.3751454476257022,
+            0.9268835264822781
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            -0.8740709471449924,
+            -0.47443660990631126,
+            -0.10445038313793958
+          ],
+          "east": [
+            0.47013785424295806,
+            -0.7719584931967834,
+            -0.42784399351770624
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-10-01T00:00:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-10-01T00:00:00.000Z",
+        "julianDateUT": 2461314.5,
+        "julianDateTT": 2461314.500873985,
+        "deltaTSeconds": 75.51228686934337,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -186061.00753187222,
+              -711489.8179672775,
+              -293054.51386719634
+            ],
+            "utc": "2026-10-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9769.500873984802,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              148339812.045893,
+              17152652.417820886,
+              7449697.955829623
+            ],
+            "utc": "2026-10-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9769.500873984802,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              148503867.91161928,
+              17441776.390557718,
+              7611180.388221743
+            ],
+            "utc": "2026-10-01T00:00:00.000Z",
+            "ttDaysSinceJ2000": 9769.500873984802,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 56.10143727997366,
+        "illuminatedFraction": 0.778862143861873,
+        "towardSun": [
+          -0.9912504878674692,
+          -0.12101985733931421,
+          -0.05269406448620332
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            0.9865691427443061,
+            0.16332374063549393,
+            -0.002585020231093092
+          ],
+          "east": [
+            -0.16332326475487413,
+            0.9865725288715893,
+            0.00039555748809304953
+          ],
+          "north": [
+            0.002614913875165473,
+            0.00003194913166547288,
+            0.999996580596493
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            -0.42650840622929853,
+            -0.8399682716181909,
+            -0.3354756058053894
+          ],
+          "east": [
+            0.9043734617039167,
+            -0.3902500493215677,
+            -0.17266598034988792
+          ],
+          "north": [
+            0.014114573370019895,
+            -0.37703872702848856,
+            0.9260899400918462
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            0.28620729517508625,
+            0.8812051093727835,
+            0.3762485075104773
+          ],
+          "east": [
+            -0.9503236326766152,
+            0.21092076060298606,
+            0.22890484032230463
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-03-03T09:30:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-03-03T09:30:00.000Z",
+        "julianDateUT": 2461102.8958333335,
+        "julianDateTT": 2461102.8967031776,
+        "deltaTSeconds": 75.15454058884643,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -394283.73945127893,
+              -763114.0196264856,
+              -310779.44059164147
+            ],
+            "utc": "2026-03-03T09:30:00.000Z",
+            "ttDaysSinceJ2000": 9557.896703177554,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              -141786099.13362595,
+              40270321.14148463,
+              17477125.016745225
+            ],
+            "utc": "2026-03-03T09:30:00.000Z",
+            "ttDaysSinceJ2000": 9557.896703177554,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              -142148278.28413188,
+              40383148.97182541,
+              17524199.386071138
+            ],
+            "utc": "2026-03-03T09:30:00.000Z",
+            "ttDaysSinceJ2000": 9557.896703177554,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 1.1238590508822803,
+        "illuminatedFraction": 0.9999038156279041,
+        "towardSun": [
+          0.9534263153875941,
+          -0.2767465568918674,
+          -0.11995667707523483
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 0.8849800746150257,
+        "state": "penumbra"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            0.5496074450193756,
+            -0.8354219092357771,
+            -0.0013747538407969699
+          ],
+          "east": [
+            0.8354191286683624,
+            0.5496091631788503,
+            -0.0021557376552493917
+          ],
+          "north": [
+            0.0025565277757772244,
+            0.00003631380902160898,
+            0.9999967314181777
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            0.9177901850110433,
+            -0.3644536791776316,
+            -0.15759026629612374
+          ],
+          "east": [
+            0.3969309376407307,
+            0.8524635563420958,
+            0.34022303839134266
+          ],
+          "north": [
+            0.010344420768973817,
+            -0.3748058175141823,
+            0.9270456256929752
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            0.6610229195626532,
+            -0.640023930956867,
+            -0.3916861851219484
+          ],
+          "east": [
+            0.7403231202981458,
+            0.6413886340126094,
+            0.2013511800597556
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-03-03T11:34:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-03-03T11:34:00.000Z",
+        "julianDateUT": 2461102.9819444446,
+        "julianDateTT": 2461102.9828142906,
+        "deltaTSeconds": 75.15468533383682,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -394193.43721644266,
+              -763104.218962002,
+              -310777.1419572625
+            ],
+            "utc": "2026-03-03T11:34:00.000Z",
+            "ttDaysSinceJ2000": 9557.982814290339,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              -141856258.80717227,
+              40075724.61434214,
+              17392769.2978684
+            ],
+            "utc": "2026-03-03T11:34:00.000Z",
+            "ttDaysSinceJ2000": 9557.982814290339,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              -142221125.3325639,
+              40182258.13735568,
+              17436344.40856876
+            ],
+            "utc": "2026-03-03T11:34:00.000Z",
+            "ttDaysSinceJ2000": 9557.982814290339,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 0.3593596998854332,
+        "illuminatedFraction": 0.9999901655049985,
+        "towardSun": [
+          0.9538939029315676,
+          -0.27538867959038466,
+          -0.11936287992272035
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 0,
+        "state": "umbra"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            0.9020186404129418,
+            -0.431691008211121,
+            -0.0022903661834021397
+          ],
+          "east": [
+            0.43168951397450495,
+            0.9020215474753026,
+            -0.0011364042925585832
+          ],
+          "north": [
+            0.002556535163827516,
+            0.000036330790396633824,
+            0.999996731398673
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            0.9254702436485177,
+            -0.34750019516055486,
+            -0.15082586808810225
+          ],
+          "east": [
+            0.3786788264963257,
+            0.859517770554988,
+            0.34326600248720923
+          ],
+          "north": [
+            0.01035251102481762,
+            -0.37479703369098233,
+            0.9270490866463983
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            0.6766537734100652,
+            -0.6262063827118386,
+            -0.3873050957331629
+          ],
+          "east": [
+            0.7260642489236316,
+            0.6548859276919882,
+            0.20965478326517356
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-03-03T13:30:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-03-03T13:30:00.000Z",
+        "julianDateUT": 2461103.0625,
+        "julianDateTT": 2461103.0633698474,
+        "deltaTSeconds": 75.15482080634683,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -394108.9641765753,
+              -763095.0418397291,
+              -310774.98780628544
+            ],
+            "utc": "2026-03-03T13:30:00.000Z",
+            "ttDaysSinceJ2000": 9558.063369847463,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              -141921605.15722784,
+              39893599.96626682,
+              17313820.017720763
+            ],
+            "utc": "2026-03-03T13:30:00.000Z",
+            "ttDaysSinceJ2000": 9558.063369847463,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              -142288855.44802016,
+              39994207.17967722,
+              17354106.05844457
+            ],
+            "utc": "2026-03-03T13:30:00.000Z",
+            "ttDaysSinceJ2000": 9558.063369847463,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 1.05189278297549,
+        "illuminatedFraction": 0.9999157392158717,
+        "towardSun": [
+          0.9543292181812891,
+          -0.27411786079527295,
+          -0.11880716189907391
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 0.750918384685253,
+        "state": "penumbra"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            0.9981267620924823,
+            0.06112645881499628,
+            -0.0025539826772512366
+          ],
+          "east": [
+            -0.06112635184343207,
+            0.9981300289600018,
+            0.0001199942453140263
+          ],
+          "north": [
+            0.0025565416269023415,
+            0.00003634617618666945,
+            0.9999967313815907
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            0.9323263122645442,
+            -0.33151688051517686,
+            -0.1444444716584257
+          ],
+          "east": [
+            0.36146966641511613,
+            0.8658117582559102,
+            0.3459908662487411
+          ],
+          "north": [
+            0.010359909311401088,
+            -0.3747886833927827,
+            0.9270523799008146
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            0.6909979394759134,
+            -0.6130225377231149,
+            -0.38304727630353186
+          ],
+          "east": [
+            0.7124264665740311,
+            0.6672431193212515,
+            0.21733648898260777
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    },
+    {
+      "utc": "2026-08-12T17:46:00.000Z",
+      "frame": {
+        "id": "SSB_EQJ",
+        "origin": "Solar System Barycenter (SSB)",
+        "orientation": "J2000 mean equator and equinox (EQJ)",
+        "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+        "unit": "km",
+        "ephemerisTimeScale": "TT",
+        "inputTimeScale": "UTC (UT1 approximated by UTC)",
+        "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+        "kmPerLibraryAU": 149597870.69098932,
+        "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+      },
+      "snapshot": {
+        "utc": "2026-08-12T17:46:00.000Z",
+        "julianDateUT": 2461265.240277778,
+        "julianDateTT": 2461265.241150795,
+        "deltaTSeconds": 75.42867141310126,
+        "frame": {
+          "id": "SSB_EQJ",
+          "origin": "Solar System Barycenter (SSB)",
+          "orientation": "J2000 mean equator and equinox (EQJ)",
+          "axes": "+X J2000 mean equinox; +Z J2000 north celestial pole; +Y completes right-handed axes",
+          "unit": "km",
+          "ephemerisTimeScale": "TT",
+          "inputTimeScale": "UTC (UT1 approximated by UTC)",
+          "source": "Astronomy Engine 2.1.19: BaryState; no light-time or aberration",
+          "kmPerLibraryAU": 149597870.69098932,
+          "accuracy": "Approximate analytical ephemeris; independent JPL comparison pending. Display precision is not accuracy."
+        },
+        "bodies": {
+          "sun": {
+            "id": "sun",
+            "name": "太阳",
+            "english": "Sun",
+            "physicalRadiusKm": 695700,
+            "radiusDefinition": "IAU nominal solar radius",
+            "radiusSource": "IAU 2015 Resolution B3",
+            "positionKm": [
+              -231715.41642989375,
+              -728184.0785982846,
+              -299242.52050031384
+            ],
+            "utc": "2026-08-12T17:46:00.000Z",
+            "ttDaysSinceJ2000": 9720.241150794807,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "earth": {
+            "id": "earth",
+            "name": "地球",
+            "english": "Earth",
+            "physicalRadiusKm": 6371.0088,
+            "radiusDefinition": "IUGG mean radius (2a+b)/3; spherical model",
+            "radiusSource": "IUGG / WGS84 a=6378.137 km, b=6356.752314245 km",
+            "positionKm": [
+              115327130.94064671,
+              -90740284.99080418,
+              -39318601.61795298
+            ],
+            "utc": "2026-08-12T17:46:00.000Z",
+            "ttDaysSinceJ2000": 9720.241150794807,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          },
+          "moon": {
+            "id": "moon",
+            "name": "月球",
+            "english": "Moon",
+            "physicalRadiusKm": 1737.4,
+            "radiusDefinition": "Mean lunar radius; spherical model",
+            "radiusSource": "NASA Moon Fact Sheet",
+            "positionKm": [
+              115047075.38183051,
+              -90525037.19037466,
+              -39219099.676022895
+            ],
+            "utc": "2026-08-12T17:46:00.000Z",
+            "ttDaysSinceJ2000": 9720.241150794807,
+            "frame": "SSB_EQJ",
+            "unit": "km",
+            "kind": "geometric"
+          }
+        }
+      },
+      "moonFromEarth": {
+        "angleDeg": 179.1066512228879,
+        "illuminatedFraction": 0.00006077542996441032,
+        "towardSun": [
+          -0.7623260065609805,
+          0.5938167459983145,
+          0.25737274893189677
+        ]
+      },
+      "moonCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "earthCenterShadow": {
+        "fraction": 1,
+        "state": "clear"
+      },
+      "poses": {
+        "earth": {
+          "prime": [
+            -0.677530052396012,
+            -0.7354929175830021,
+            0.0017878158463276925
+          ],
+          "east": [
+            0.7354904781365655,
+            -0.6775324104466309,
+            -0.0018945619082252289
+          ],
+          "north": [
+            0.0026047400452192645,
+            0.00003129890268833977,
+            0.9999966071690821
+          ],
+          "source": "Astronomy Engine GAST + EQD→EQJ; UTC≈UT1, precession/nutation; no polar motion"
+        },
+        "moon": {
+          "prime": [
+            0.7155513622149364,
+            -0.6433565467898369,
+            -0.2721738446930658
+          ],
+          "east": [
+            0.6984260848171494,
+            0.6665108466816828,
+            0.2606996265871018
+          ],
+          "north": [
+            0.013684008160506399,
+            -0.37663728567193483,
+            0.9262597383900159
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        },
+        "sun": {
+          "prime": [
+            -0.07821064462272376,
+            0.8976705581057186,
+            0.43367114750449537
+          ],
+          "east": [
+            -0.9894001807675271,
+            -0.12327846992970526,
+            0.07674438838752784
+          ],
+          "north": [
+            0.12235349347232784,
+            -0.4230720836476433,
+            0.8977971010607902
+          ],
+          "source": "Astronomy Engine RotationAxis (IAU elements; lunar periodic libration terms)"
+        }
+      }
+    }
+  ]
+}

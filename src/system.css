@@ -1,4 +1,15 @@
 .space-app { color: #d0d0d0; --accent: #c9c9c9; }
+.primary-navigation { position: absolute; top: 66px; left: 28px; display: flex; gap: 22px; z-index: 5; pointer-events: auto; }
+.primary-navigation button { padding: 7px 0; text-align: left; color: #888; border-bottom: 1px solid transparent; font-size: 12px; line-height: 1.5; }
+.primary-navigation button small { display: block; font: 9px/1.7 ui-monospace, monospace; color: #777; }
+.primary-navigation button[aria-pressed="true"] { color: #eee; border-bottom-color: #aaa; }
+#interface .view-switch { top: 128px; }
+#interface .heading-readout { top: 168px; }
+.system-light-readings { padding-top: 20px; border-top: 1px solid #303030; margin-top: 20px; }
+.system-light-readings h2 { font-size: 13px; font-weight: 500; }
+.system-light-readings h2 small { font-size: 10px; color: #999; margin-left: 6px; }
+.space-app .system-panel-title::after { content: ''; pointer-events: none; position: absolute; inset: 0; background: radial-gradient(ellipse at var(--sun-x, 50%) var(--sun-y, 50%), rgb(235 191 133 / var(--sun-ui, 0)), transparent 80%); }
+.space-app .system-actions { border-top: 1px solid rgb(235 191 133 / var(--sun-ui, 0)); padding-top: 4px; }
 #space-stage { position: absolute; inset: 0; touch-action: none; user-select: none; }
 .debug-open #space-stage { right: 430px; }
 #space-stage canvas { display: block; width: 100%; height: 100%; cursor: default; }
@@ -14,7 +25,7 @@
 .system-coordinate-mode { padding: 7px 0; font-size: 12px; color: #aaa; }
 .system-coordinate-mode:hover { color: #fff; }
 .debug-open .system-header { right: 452px; }
-.system-summary { position: absolute; top: 82px; left: 28px; max-width: calc(100% - 56px); display: flex; flex-wrap: wrap; gap: 8px 16px; color: #969696; font: 10px/1.8 ui-monospace, monospace; pointer-events: none; }
+.system-summary { position: absolute; top: 128px; left: 28px; max-width: calc(100% - 56px); display: flex; flex-wrap: wrap; gap: 8px 16px; color: #969696; font: 10px/1.8 ui-monospace, monospace; pointer-events: none; }
 .debug-open .system-summary { max-width: calc(100% - 486px); }
 .system-scale { color: #ddd; }
 .system-debug { position: absolute; top: 0; right: 0; bottom: 0; width: 430px; max-width: 100%; background: #121212; border-left: 1px solid #303030; overflow-y: auto; scrollbar-width: thin; z-index: 7; }
@@ -57,8 +68,14 @@
   .system-header .version { margin-left: 8px; font-size: 9px; }
   .system-header-actions { gap: 12px; }
   .system-coordinate-mode { font-size: 11px; }
-  .system-summary, .debug-open .system-summary { top: 75px; left: 20px; max-width: calc(100% - 40px); gap: 4px 12px; }
-  .system-debug { top: 123px; right: 12px; bottom: 76px; width: min(406px, calc(100% - 24px)); border: 1px solid #3a3a3a; border-radius: 4px; }
+  .primary-navigation { top: 61px; left: 20px; gap: 20px; }
+  .primary-navigation button { font-size: 11px; }
+  .primary-navigation button small { font-size: 8px; }
+  #interface .view-switch { top: 119px; left: 20px; }
+  #interface .heading-readout { top: 156px; left: 20px; }
+  #interface .tool-panel { top: 188px; max-height: calc(100dvh - 280px); }
+  .system-summary, .debug-open .system-summary { top: 118px; left: 20px; max-width: calc(100% - 40px); gap: 4px 12px; }
+  .system-debug { top: 165px; right: 12px; bottom: 76px; width: min(406px, calc(100% - 24px)); border: 1px solid #3a3a3a; border-radius: 4px; }
   .system-panel-title { padding: 16px 17px; }
   .system-panel-content { padding: 16px 18px 22px; }
   .system-footer, .debug-open .system-footer { bottom: 18px; left: 20px; right: 20px; display: block; font-size: 9px; }

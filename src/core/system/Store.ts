@@ -10,10 +10,12 @@ export interface ObservationState {
   timeZone: DisplayTimeZone;
   scale: ScaleMode;
   earthReferences: boolean;
+  lighting: 'strict' | 'debug';
+  uiLighting: boolean;
 }
 export class SystemStore {
   state: ObservationState = { observer: 'earth', target: 'moon', snapshot: offlineEphemeris.snapshot(new Date(SNAPSHOTS[0])),
-    timeZone: 'UTC', scale: 'enhanced', earthReferences: true };
+    timeZone: 'UTC', scale: 'enhanced', earthReferences: true, lighting: 'strict', uiLighting: true };
   private listeners = new Set<(state: ObservationState, previous: ObservationState) => void>();
   subscribe(listener: (state: ObservationState, previous: ObservationState) => void): () => void {
     this.listeners.add(listener);
@@ -28,6 +30,7 @@ export class SystemStore {
     if (target === observer) target = BODY_IDS.find(id => id !== observer)!;
     if (settings.timeZone && !TIME_ZONES.includes(settings.timeZone)) throw new RangeError('Unknown display time zone.');
     if (settings.scale && !['physical', 'enhanced'].includes(settings.scale)) throw new RangeError('Unknown scale mode.');
+    if (settings.lighting && !['strict', 'debug'].includes(settings.lighting)) throw new RangeError('Unknown lighting mode.');
     this.state = { ...previous, ...settings, observer, target,
       snapshot: instant ? offlineEphemeris.snapshot(instant) : previous.snapshot };
     this.listeners.forEach(listener => listener(this.state, previous));
